@@ -9,11 +9,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-# ============================================================
-# COMPENG 4DK4 - LAB 4
-# Simulation of ARQ Protocols
-# ============================================================
-
 OUT = Path("lab4_output")
 OUT.mkdir(exist_ok=True)
 
@@ -33,10 +28,7 @@ ACK_PROBS = [0, .01, .025, .05, .10, .15, .20, .30]
 
 TIMEOUTS = [5, 8, 10, 11, 12, 15, 20, 30, 50, 80]
 
-
-# ============================================================
 # DISCRETE-EVENT ARQ SIMULATOR
-# ============================================================
 
 class ARQ:
 
@@ -117,9 +109,7 @@ class ARQ:
             self.pending.append(seq)
             self.pending_set.add(seq)
 
-    # --------------------------------------------------------
     # Sender
-    # --------------------------------------------------------
 
     def start_send(self):
 
@@ -168,9 +158,7 @@ class ARQ:
             seq
         )
 
-    # --------------------------------------------------------
     # Timers
-    # --------------------------------------------------------
 
     def arm_sr_timer(self, seq):
 
@@ -208,9 +196,7 @@ class ARQ:
                 self.base
             )
 
-    # --------------------------------------------------------
     # Data packet transmission
-    # --------------------------------------------------------
 
     def tx_end(self, seq):
 
@@ -245,9 +231,7 @@ class ARQ:
 
         self.start_send()
 
-    # --------------------------------------------------------
     # Receiver
-    # --------------------------------------------------------
 
     def receive(self, seq):
 
@@ -313,9 +297,7 @@ class ARQ:
 
             self.send_ack(self.recv_base - 1)
 
-    # --------------------------------------------------------
     # ACK transmission
-    # --------------------------------------------------------
 
     def send_ack(self, ack_seq):
 
@@ -335,9 +317,7 @@ class ARQ:
                 ack_seq
             )
 
-    # --------------------------------------------------------
     # ACK arrival at sender
-    # --------------------------------------------------------
 
     def got_ack(self, seq):
 
@@ -410,9 +390,7 @@ class ARQ:
 
         self.start_send()
 
-    # --------------------------------------------------------
     # Go-Back-N timeout
-    # --------------------------------------------------------
 
     def gbn_timeout(self, token, base_at_schedule):
 
@@ -438,9 +416,7 @@ class ARQ:
 
         self.start_send()
 
-    # --------------------------------------------------------
     # Main event loop
-    # --------------------------------------------------------
 
     def run(self):
 
@@ -513,10 +489,7 @@ class ARQ:
             "duplicates": self.duplicates
         }
 
-
-# ============================================================
 # EXPERIMENT HELPERS
-# ============================================================
 
 def simulate(
     protocol,
@@ -654,10 +627,7 @@ def run_batch(tag, params):
 
     return summarize(records, tag)
 
-
-# ============================================================
 # GRAPH GENERATION
-# ============================================================
 
 def plot(
     rows,
@@ -1078,8 +1048,7 @@ def part7():
 
 def checks():
 
-    # Error-free S&W expected efficiency:
-    # 1 ms / (1 ms + 10 ms) = 1/11
+    # wrror-free s&w expected efficiency - 1 ms / (1 ms + 10 ms) = 1/11
 
     sw, _ = simulate(
         "SW",
@@ -1116,10 +1085,7 @@ def checks():
         "S&W, GBN and SR under zero errors."
     )
 
-
-# ============================================================
 # RUN ALL EXPERIMENTS
-# ============================================================
 
 def main():
 
